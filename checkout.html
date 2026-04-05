@@ -63,86 +63,28 @@
 
       <!-- Cart with items -->
       <div id="cart-content" style="display: none;">
-        <div class="checkout-layout">
-          <div class="cart-items">
-            <table class="cart-table">
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Qty</th>
-                  <th>Subtotal</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="cart-table-body"></tbody>
-            </table>
-            <div class="cart-total">
-              <span>Total</span>
-              <span id="cart-total-amount"></span>
-            </div>
+        <div class="cart-items" style="max-width: 700px;">
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Subtotal</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cart-table-body"></tbody>
+          </table>
+          <div class="cart-total">
+            <span>Subtotal</span>
+            <span id="cart-total-amount"></span>
           </div>
+          <p style="font-size: 12px; color: var(--muted-brown); margin-bottom: 24px;">Shipping calculated at checkout. $5 flat rate.</p>
 
-          <div class="checkout-form-container">
-            <h2>Shipping &amp; Contact</h2>
-            <form id="order-form" action="https://formsubmit.co/bob@pointoforigincoffee.com" method="POST">
-              <!-- Formsubmit config -->
-              <input type="hidden" name="_cc" value="chris@pointoforigincoffee.com">
-              <input type="hidden" name="_subject" value="New Order — Point of Origin Coffee">
-              <input type="hidden" name="_captcha" value="false">
-              <input type="hidden" name="_next" value="order-confirmation.html">
-              <input type="hidden" name="_template" value="table">
-              <input type="text" name="_honey" style="display:none">
-
-              <!-- Order details (populated by JS) -->
-              <input type="hidden" name="Order Summary" id="form-order-summary">
-              <input type="hidden" name="Order Total" id="form-order-total">
-
-              <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="Name" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="Email" required>
-              </div>
-              <div class="form-group">
-                <label for="phone">Phone (optional)</label>
-                <input type="tel" id="phone" name="Phone">
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="address">Street Address</label>
-                  <input type="text" id="address" name="Street Address" required>
-                </div>
-                <div class="form-group form-group-small">
-                  <label for="apt">Apt/Suite</label>
-                  <input type="text" id="apt" name="Apt/Suite">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="city">City</label>
-                  <input type="text" id="city" name="City" required>
-                </div>
-                <div class="form-group form-group-small">
-                  <label for="state">State</label>
-                  <input type="text" id="state" name="State" required>
-                </div>
-                <div class="form-group form-group-small">
-                  <label for="zip">ZIP</label>
-                  <input type="text" id="zip" name="ZIP" required>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="notes">Order Notes (optional)</label>
-                <textarea id="notes" name="Notes" rows="3"></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-full">Place Order</button>
-              <p class="checkout-note">You'll receive a confirmation email. We'll reach out with shipping details and payment instructions.</p>
-            </form>
-          </div>
+          <button id="checkout-btn" class="btn btn-primary btn-full">Proceed to Payment</button>
+          <div id="checkout-error" style="display: none; margin-top: 12px; padding: 12px; background: #f8e8e8; border-radius: 4px; color: #8b3a3a; font-size: 13px; text-align: center;"></div>
+          <p class="checkout-note">You'll be redirected to Stripe for secure payment and shipping address.</p>
         </div>
       </div>
     </div>
@@ -194,14 +136,15 @@
   <script src="js/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var items = Cart.getItems();
       var emptyEl = document.getElementById('cart-empty');
       var contentEl = document.getElementById('cart-content');
       var tbody = document.getElementById('cart-table-body');
       var totalEl = document.getElementById('cart-total-amount');
+      var checkoutBtn = document.getElementById('checkout-btn');
+      var errorEl = document.getElementById('checkout-error');
 
       function renderCart() {
-        items = Cart.getItems();
+        var items = Cart.getItems();
         if (items.length === 0) {
           emptyEl.style.display = 'block';
           contentEl.style.display = 'none';
@@ -227,10 +170,6 @@
         });
 
         totalEl.textContent = '$' + Cart.getTotal().toFixed(2);
-
-        // Update hidden form fields
-        document.getElementById('form-order-summary').value = Cart.formatOrderSummary();
-        document.getElementById('form-order-total').value = '$' + Cart.getTotal().toFixed(2);
       }
 
       // Handle quantity changes and removal
@@ -239,6 +178,7 @@
         if (btn.classList.contains('qty-btn')) {
           var name = btn.getAttribute('data-name');
           var action = btn.getAttribute('data-action');
+          var items = Cart.getItems();
           var current = 0;
           items.forEach(function (item) {
             if (item.name === name) current = item.quantity;
@@ -256,10 +196,35 @@
         }
       });
 
-      // Clear cart on form submit
-      document.getElementById('order-form').addEventListener('submit', function () {
-        // Small delay to ensure form data is sent before clearing
-        setTimeout(function () { Cart.clear(); }, 100);
+      // Stripe checkout
+      checkoutBtn.addEventListener('click', function () {
+        var items = Cart.getItems();
+        if (items.length === 0) return;
+
+        checkoutBtn.textContent = 'Redirecting to payment...';
+        checkoutBtn.disabled = true;
+        errorEl.style.display = 'none';
+
+        fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: items }),
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (data.url) {
+              Cart.clear();
+              window.location.href = data.url;
+            } else {
+              throw new Error(data.error || 'Something went wrong');
+            }
+          })
+          .catch(function (err) {
+            checkoutBtn.textContent = 'Proceed to Payment';
+            checkoutBtn.disabled = false;
+            errorEl.textContent = 'Unable to start checkout. Please try again or contact us.';
+            errorEl.style.display = 'block';
+          });
       });
 
       renderCart();

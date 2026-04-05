@@ -64,9 +64,11 @@
           <polygon points="-20,-20 -3,-8 -8,-3" fill="#2D5A27"/>
         </g>
       </svg>
-      <h1>Order Placed</h1>
-      <p style="color: var(--muted-brown); font-size: 17px; max-width: 500px; margin: 16px auto 32px;">Thank you for your order. We've received it and will be in touch shortly with shipping details and payment instructions.</p>
-      <p style="color: var(--muted-brown); font-size: 14px; margin-bottom: 32px;">A confirmation has been sent to your email.</p>
+      <h1>Order Confirmed</h1>
+      <p id="confirm-name" style="color: var(--muted-brown); font-size: 17px; max-width: 500px; margin: 16px auto 8px;"></p>
+      <p style="color: var(--muted-brown); font-size: 17px; max-width: 500px; margin: 0 auto 8px;">Thank you for your order. Your payment has been received.</p>
+      <p id="confirm-total" style="font-family: 'Libre Baskerville', serif; font-size: 1.3rem; margin-bottom: 8px;"></p>
+      <p style="color: var(--muted-brown); font-size: 14px; margin-bottom: 32px;">A receipt has been sent to your email. We'll ship your coffee soon.</p>
       <a href="index.html" class="btn btn-primary">Back to Home</a>
     </div>
   </section>
@@ -114,5 +116,24 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var params = new URLSearchParams(window.location.search);
+      var sessionId = params.get('session_id');
+      if (sessionId) {
+        fetch('/api/order-details?session_id=' + sessionId)
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (data.customer_name) {
+              document.getElementById('confirm-name').textContent = 'Thanks, ' + data.customer_name + '!';
+            }
+            if (data.amount_total) {
+              document.getElementById('confirm-total').textContent = 'Total: $' + (data.amount_total / 100).toFixed(2);
+            }
+          })
+          .catch(function () {});
+      }
+    });
+  </script>
 </body>
 </html>

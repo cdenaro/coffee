@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "point-of-origin-coffee",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  }
+}
