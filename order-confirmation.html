@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expresiones Java — Point of Origin Coffee</title>
-  <meta name="description" content="Java variety from Finca La Macarena, Pijao, Quindío. Natural process, 192-hour fermentation. Maple honey, tropical fruits, black tea.">
+  <title>Order Confirmed — Point of Origin Coffee</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -43,7 +42,7 @@
         <a href="faq.html">FAQ</a>
       </nav>
       <div class="header-actions">
-        <a href="checkout.html" class="btn btn-primary btn-sm">Cart (<span class="cart-count">0</span>)</a>
+        <a href="index.html#collection" class="btn btn-primary btn-sm">Shop Now</a>
       </div>
       <button class="mobile-menu-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -51,33 +50,24 @@
     </div>
   </header>
 
-  <section class="product-detail">
-    <div class="container product-detail-inner">
-      <div class="product-detail-image">
-        <div class="product-detail-img-placeholder">
-          <img src="images/expresiones-logo.png" alt="Expresiones - Compañía de Cafés" style="max-width: 220px;">
-        </div>
-      </div>
-      <div class="product-detail-content">
-        <h1>Expresiones Java</h1>
-        <p class="product-detail-meta">Finca La Macarena &middot; Pijao, Quindío &middot; Java Variety &middot; Natural Process &middot; 192-Hour Fermentation</p>
-        <p class="product-detail-price">$26</p>
-        <p class="product-detail-description">From producer Mariela Hernández at Finca La Macarena in Pijao, Quindío, this Java variety undergoes an extended 192-hour natural fermentation that develops extraordinary depth and complexity. The extended fermentation time transforms the bean into something truly special &mdash; creamy, layered, and endlessly interesting.</p>
-
-        <div class="product-detail-notes">
-          <h3>Tasting Notes</h3>
-          <p>Maple honey, tropical fruits, and flowers. Juicy citric acidity of pineapple and gulupa (passion fruit). Creamy mouthfeel with a lingering finish of black tea and sweet cacao.</p>
-        </div>
-
-        <div class="brew-guide">
-          <h3>Brew Guide</h3>
-          <p>Pour-over recommended at 192&deg;F. Weigh your beans. Take your time.</p>
-        </div>
-
-        <p class="product-detail-description" style="font-size: 13px;">Producer: Mariela Hernández. Finca La Macarena, Pijao, Quindío. Direct and fair trade. Zero pesticides. Regenerative farming.</p>
-
-        <button class="btn btn-primary" data-add-to-cart data-product-name="Expresiones Java" data-product-price="26">Add to Cart — $26</button>
-      </div>
+  <section style="padding: 80px 0; text-align: center;">
+    <div class="container">
+      <svg viewBox="0 0 60 60" width="60" height="60" style="margin-bottom: 24px;" aria-hidden="true">
+        <g transform="translate(30,30)">
+          <polygon points="0,-28 3,-8 -3,-8" fill="#2D5A27"/>
+          <polygon points="20,-20 8,-3 3,-8" fill="#2D5A27"/>
+          <polygon points="28,0 8,3 8,-3" fill="#2D5A27"/>
+          <polygon points="20,20 3,8 8,3" fill="#2D5A27"/>
+          <polygon points="0,28 -3,8 3,8" fill="#C4956A"/>
+          <polygon points="-20,20 -8,3 -3,8" fill="#2D5A27"/>
+          <polygon points="-28,0 -8,-3 -8,3" fill="#2D5A27"/>
+          <polygon points="-20,-20 -3,-8 -8,-3" fill="#2D5A27"/>
+        </g>
+      </svg>
+      <h1>Order Placed</h1>
+      <p style="color: var(--muted-brown); font-size: 17px; max-width: 500px; margin: 16px auto 32px;">Thank you for your order. We've received it and will be in touch shortly with shipping details and payment instructions.</p>
+      <p style="color: var(--muted-brown); font-size: 14px; margin-bottom: 32px;">A confirmation has been sent to your email.</p>
+      <a href="index.html" class="btn btn-primary">Back to Home</a>
     </div>
   </section>
 
@@ -103,7 +93,6 @@
         <div class="footer-col">
           <h4>Shop</h4>
           <a href="index.html#collection">All Coffee</a>
-          <a href="#">Subscriptions</a>
         </div>
         <div class="footer-col">
           <h4>Learn</h4>
@@ -124,7 +113,6 @@
     </div>
   </footer>
 
-  <script src="js/cart.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

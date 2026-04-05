@@ -790,6 +790,213 @@ img {
   transform: rotate(45deg);
 }
 
+/* --- Cart Badge --- */
+.cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  font-size: 10px;
+}
+
+/* --- Cart Notification --- */
+.cart-notification {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--deep-espresso);
+  color: var(--cream);
+  padding: 16px 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cart-notification.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cart-notification a {
+  color: var(--terracotta);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* --- Checkout Page --- */
+.checkout-page {
+  padding: 60px 0 80px;
+}
+
+.checkout-layout {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.cart-items {
+  flex: 1.2;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table th {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-brown);
+  text-align: left;
+  padding: 0 0 12px;
+  border-bottom: 1px solid rgba(59, 42, 26, 0.1);
+}
+
+.cart-table td {
+  padding: 16px 8px 16px 0;
+  border-bottom: 1px solid rgba(59, 42, 26, 0.05);
+  font-size: 14px;
+}
+
+.cart-table td:first-child {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(59, 42, 26, 0.15);
+  background: none;
+  border-radius: 2px;
+  font-size: 16px;
+  color: var(--dark-chocolate);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+.qty-btn:hover {
+  border-color: var(--terracotta);
+}
+
+.qty-value {
+  min-width: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: var(--muted-brown);
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.remove-btn:hover {
+  color: var(--dark-chocolate);
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-top: 2px solid var(--dark-chocolate);
+  margin-top: 8px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.3rem;
+}
+
+.checkout-form-container {
+  flex: 1;
+  background: white;
+  border-radius: 4px;
+  padding: 32px;
+}
+
+.checkout-form-container h2 {
+  margin-bottom: 24px;
+  font-size: 1.3rem;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.form-group-small {
+  flex: 0 0 120px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-brown);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(59, 42, 26, 0.15);
+  border-radius: 2px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 14px;
+  color: var(--dark-chocolate);
+  background: var(--cream);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--terracotta);
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-full {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.checkout-note {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--muted-brown);
+  text-align: center;
+  line-height: 1.6;
+}
+
 /* --- Responsive --- */
 @media (max-width: 900px) {
   h1 { font-size: 2rem; }
@@ -861,6 +1068,19 @@ img {
 
   .product-detail-inner {
     flex-direction: column;
+  }
+
+  .checkout-layout {
+    flex-direction: column;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-group-small {
+    flex: 1;
   }
 
   .about-values {

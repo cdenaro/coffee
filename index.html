@@ -53,7 +53,7 @@
         <a href="faq.html">FAQ</a>
       </nav>
       <div class="header-actions">
-        <a href="#collection" class="btn btn-primary btn-sm">Shop Now</a>
+        <a href="checkout.html" class="btn btn-primary btn-sm">Cart (<span class="cart-count">0</span>)</a>
       </div>
       <button class="mobile-menu-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -170,7 +170,7 @@
             <p class="product-notes">Strawberry, jasmine, brown sugar</p>
             <div class="product-footer">
               <span class="product-price">$22</span>
-              <button class="btn btn-primary btn-sm">Add to Cart</button>
+              <button class="btn btn-primary btn-sm" data-add-to-cart data-product-name="Macizo Natural" data-product-price="22">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -248,7 +248,7 @@
             <p class="product-notes">Dark chocolate, hazelnut, plum</p>
             <div class="product-footer">
               <span class="product-price">$28</span>
-              <button class="btn btn-primary btn-sm">Add to Cart</button>
+              <button class="btn btn-primary btn-sm" data-add-to-cart data-product-name="San Alberto Honey" data-product-price="28">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -370,6 +370,7 @@
     </div>
   </footer>
 
+  <script src="js/cart.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

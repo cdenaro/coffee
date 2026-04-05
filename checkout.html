@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Point of Origin Coffee</title>
+  <meta name="description" content="Complete your order for Point of Origin Coffee.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="announcement-bar">
+    Direct and fair trade &middot; Zero pesticides &middot; Regenerative farming
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <svg class="compass-logo" viewBox="0 0 60 60" width="40" height="40" aria-hidden="true">
+          <g transform="translate(30,30)">
+            <polygon points="0,-28 3,-8 -3,-8" fill="#3B2A1A"/>
+            <polygon points="20,-20 8,-3 3,-8" fill="#3B2A1A"/>
+            <polygon points="28,0 8,3 8,-3" fill="#3B2A1A"/>
+            <polygon points="20,20 3,8 8,3" fill="#3B2A1A"/>
+            <polygon points="0,28 -3,8 3,8" fill="#C4956A"/>
+            <polygon points="-20,20 -8,3 -3,8" fill="#3B2A1A"/>
+            <polygon points="-28,0 -8,-3 -8,3" fill="#3B2A1A"/>
+            <polygon points="-20,-20 -3,-8 -8,-3" fill="#3B2A1A"/>
+          </g>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-name">POINT OF ORIGIN</span>
+          <span class="logo-sub">C O F F E E</span>
+        </div>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html#collection">Shop</a>
+        <a href="index.html#producers">Producers</a>
+        <a href="about.html">Our Story</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <a href="checkout.html" class="btn btn-primary btn-sm">Cart (<span class="cart-count">0</span>)</a>
+      </div>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="checkout-page">
+    <div class="container">
+      <h1>Your Cart</h1>
+
+      <!-- Empty cart state -->
+      <div id="cart-empty" style="display: none; text-align: center; padding: 60px 0;">
+        <p style="color: var(--muted-brown); font-size: 17px; margin-bottom: 24px;">Your cart is empty.</p>
+        <a href="index.html#collection" class="btn btn-primary">Browse the Collection</a>
+      </div>
+
+      <!-- Cart with items -->
+      <div id="cart-content" style="display: none;">
+        <div class="checkout-layout">
+          <div class="cart-items">
+            <table class="cart-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Qty</th>
+                  <th>Subtotal</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="cart-table-body"></tbody>
+            </table>
+            <div class="cart-total">
+              <span>Total</span>
+              <span id="cart-total-amount"></span>
+            </div>
+          </div>
+
+          <div class="checkout-form-container">
+            <h2>Shipping &amp; Contact</h2>
+            <form id="order-form" action="https://formsubmit.co/bob@pointoforigincoffee.com" method="POST">
+              <!-- Formsubmit config -->
+              <input type="hidden" name="_cc" value="chris@pointoforigincoffee.com">
+              <input type="hidden" name="_subject" value="New Order — Point of Origin Coffee">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_next" value="order-confirmation.html">
+              <input type="hidden" name="_template" value="table">
+              <input type="text" name="_honey" style="display:none">
+
+              <!-- Order details (populated by JS) -->
+              <input type="hidden" name="Order Summary" id="form-order-summary">
+              <input type="hidden" name="Order Total" id="form-order-total">
+
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="Name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="Email" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone (optional)</label>
+                <input type="tel" id="phone" name="Phone">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="address">Street Address</label>
+                  <input type="text" id="address" name="Street Address" required>
+                </div>
+                <div class="form-group form-group-small">
+                  <label for="apt">Apt/Suite</label>
+                  <input type="text" id="apt" name="Apt/Suite">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="text" id="city" name="City" required>
+                </div>
+                <div class="form-group form-group-small">
+                  <label for="state">State</label>
+                  <input type="text" id="state" name="State" required>
+                </div>
+                <div class="form-group form-group-small">
+                  <label for="zip">ZIP</label>
+                  <input type="text" id="zip" name="ZIP" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="notes">Order Notes (optional)</label>
+                <textarea id="notes" name="Notes" rows="3"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-full">Place Order</button>
+              <p class="checkout-note">You'll receive a confirmation email. We'll reach out with shipping details and payment instructions.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <svg class="compass-footer" viewBox="0 0 60 60" width="32" height="32" aria-hidden="true">
+          <g transform="translate(30,30)">
+            <polygon points="0,-28 3,-8 -3,-8" fill="#9A7A5A"/>
+            <polygon points="20,-20 8,-3 3,-8" fill="#9A7A5A"/>
+            <polygon points="28,0 8,3 8,-3" fill="#9A7A5A"/>
+            <polygon points="20,20 3,8 8,3" fill="#9A7A5A"/>
+            <polygon points="0,28 -3,8 3,8" fill="#C4956A"/>
+            <polygon points="-20,20 -8,3 -3,8" fill="#9A7A5A"/>
+            <polygon points="-28,0 -8,-3 -8,3" fill="#9A7A5A"/>
+            <polygon points="-20,-20 -3,-8 -8,-3" fill="#9A7A5A"/>
+          </g>
+        </svg>
+        <span class="footer-wordmark">POINT OF ORIGIN</span>
+        <span class="footer-sub">C O F F E E</span>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <a href="index.html#collection">All Coffee</a>
+        </div>
+        <div class="footer-col">
+          <h4>Learn</h4>
+          <a href="about.html">Our Story</a>
+          <a href="index.html#producers">Producers</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:chris@pointoforigin.coffee">chris@pointoforigin.coffee</a>
+          <a href="mailto:bob@pointoforigin.coffee">bob@pointoforigin.coffee</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Point of Origin Coffee. All rights reserved.</p>
+        <p class="footer-coords">2.0&deg;N, 75.5&deg;W</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var items = Cart.getItems();
+      var emptyEl = document.getElementById('cart-empty');
+      var contentEl = document.getElementById('cart-content');
+      var tbody = document.getElementById('cart-table-body');
+      var totalEl = document.getElementById('cart-total-amount');
+
+      function renderCart() {
+        items = Cart.getItems();
+        if (items.length === 0) {
+          emptyEl.style.display = 'block';
+          contentEl.style.display = 'none';
+          return;
+        }
+        emptyEl.style.display = 'none';
+        contentEl.style.display = 'block';
+
+        tbody.innerHTML = '';
+        items.forEach(function (item) {
+          var tr = document.createElement('tr');
+          tr.innerHTML =
+            '<td>' + item.name + '</td>' +
+            '<td>$' + item.price.toFixed(2) + '</td>' +
+            '<td><div class="qty-control">' +
+              '<button type="button" class="qty-btn" data-action="decrease" data-name="' + item.name + '">-</button>' +
+              '<span class="qty-value">' + item.quantity + '</span>' +
+              '<button type="button" class="qty-btn" data-action="increase" data-name="' + item.name + '">+</button>' +
+            '</div></td>' +
+            '<td>$' + (item.price * item.quantity).toFixed(2) + '</td>' +
+            '<td><button type="button" class="remove-btn" data-name="' + item.name + '">&times;</button></td>';
+          tbody.appendChild(tr);
+        });
+
+        totalEl.textContent = '$' + Cart.getTotal().toFixed(2);
+
+        // Update hidden form fields
+        document.getElementById('form-order-summary').value = Cart.formatOrderSummary();
+        document.getElementById('form-order-total').value = '$' + Cart.getTotal().toFixed(2);
+      }
+
+      // Handle quantity changes and removal
+      document.addEventListener('click', function (e) {
+        var btn = e.target;
+        if (btn.classList.contains('qty-btn')) {
+          var name = btn.getAttribute('data-name');
+          var action = btn.getAttribute('data-action');
+          var current = 0;
+          items.forEach(function (item) {
+            if (item.name === name) current = item.quantity;
+          });
+          if (action === 'increase') {
+            Cart.updateQuantity(name, current + 1);
+          } else if (action === 'decrease') {
+            Cart.updateQuantity(name, current - 1);
+          }
+          renderCart();
+        }
+        if (btn.classList.contains('remove-btn')) {
+          Cart.removeItem(btn.getAttribute('data-name'));
+          renderCart();
+        }
+      });
+
+      // Clear cart on form submit
+      document.getElementById('order-form').addEventListener('submit', function () {
+        // Small delay to ensure form data is sent before clearing
+        setTimeout(function () { Cart.clear(); }, 100);
+      });
+
+      renderCart();
+    });
+  </script>
+</body>
+</html>
