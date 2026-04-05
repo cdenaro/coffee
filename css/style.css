@@ -281,7 +281,7 @@ img {
 
 .producer-img-placeholder {
   height: 220px;
-  background: linear-gradient(135deg, var(--terracotta) 0%, var(--muted-brown) 100%);
+  background: var(--deep-espresso);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -289,6 +289,28 @@ img {
   font-family: 'Libre Baskerville', serif;
   font-size: 1.5rem;
   font-style: italic;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.producer-img-placeholder img {
+  max-width: 200px;
+  padding: 20px;
+}
+
+.producer-wordmark {
+  font-family: 'Libre Baskerville', serif;
+  color: var(--cream);
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
+}
+
+.producer-wordmark-sub {
+  font-family: 'Trebuchet MS', sans-serif;
+  color: var(--terracotta);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
 }
 
 .producer-card h3 {
