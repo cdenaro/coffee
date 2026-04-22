@@ -351,16 +351,27 @@ img {
 }
 
 .product-img-placeholder {
-  height: 200px;
-  background: linear-gradient(180deg, #e8dcc4 0%, #d8ccb4 100%);
+  height: 220px;
+  background: #ffffff;
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
   position: relative;
+  overflow: hidden;
+}
+
+.product-img-placeholder img {
+  max-width: 100%;
+  height: 184px;
+  width: auto;
+  object-fit: contain;
 }
 
 .product-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
   background-color: var(--forest-green);
   color: var(--cream);
   font-size: 10px;
@@ -368,6 +379,7 @@ img {
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: 2px;
+  z-index: 1;
 }
 
 .product-info {
