@@ -118,11 +118,34 @@ var Cart = (function () {
   document.addEventListener('DOMContentLoaded', function () {
     updateCartCount();
 
+    // Size variant dropdown (product detail pages with multiple sizes)
+    var sizeSelect = document.querySelector('.size-select');
+    if (sizeSelect) {
+      sizeSelect.addEventListener('change', function () {
+        var opt = this.options[this.selectedIndex];
+        var price = parseFloat(opt.getAttribute('data-price'));
+        var size = opt.value;
+        var priceEl = document.querySelector('.product-detail-price .price-amount');
+        var sizeEl = document.querySelector('.product-detail-price .price-size');
+        if (priceEl) priceEl.textContent = '$' + price;
+        if (sizeEl) sizeEl.textContent = size;
+        document.querySelectorAll('[data-add-to-cart]').forEach(function (btn) {
+          btn.setAttribute('data-product-price', price);
+          btn.setAttribute('data-product-size', size);
+          btn.textContent = 'Add to Cart — $' + price;
+        });
+      });
+    }
+
     // Attach click handlers to all add-to-cart buttons
     document.querySelectorAll('[data-add-to-cart]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var name = this.getAttribute('data-product-name');
         var price = parseFloat(this.getAttribute('data-product-price'));
+        var size = this.getAttribute('data-product-size');
+        if (size) {
+          name = name + ' (' + size + ')';
+        }
         if (name && price) {
           addItem(name, price, 1);
         }

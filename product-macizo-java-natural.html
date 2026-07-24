@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expresiones Maragogipe Peaberry — Point of Origin Coffee</title>
-  <meta name="description" content="Maragogipe peaberry from Finca Buenos Aires, Génova, Quindío. Producer Noé Salazar. Honey process. Vanilla flower, nuts, oat, green apple acidity.">
+  <title>Macizo Java Natural &mdash; Natural &mdash; Point of Origin Coffee</title>
+  <meta name="description" content="Java from El Colegio. Sweet rum, cacao, fruit. Natural process.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -12,10 +12,12 @@
 </head>
 <body>
 
+  <!-- Announcement Bar -->
   <div class="announcement-bar">
     Direct and fair trade &middot; Zero pesticides &middot; Regenerative farming
   </div>
 
+  <!-- Navigation -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="/" class="logo">
@@ -51,22 +53,32 @@
     </div>
   </header>
 
+  <!-- Product Detail -->
   <section class="product-detail">
     <div class="container product-detail-inner">
       <div class="product-detail-image">
-        <div class="product-detail-img-placeholder" style="height: 560px; overflow: hidden; background: #f0e8d8;">
-          <img src="images/FotosExpresiones_12.jpg" alt="Expresiones Maragogipe Peaberry 250g bag" style="width: 100%; height: 100%; object-fit: contain;">
+        <div class="product-detail-img-placeholder" style="height: 560px;">
+          <span class="product-img-label">Macizo Java Natural</span>
         </div>
       </div>
       <div class="product-detail-content">
-        <h1>Expresiones Maragogipe Peaberry</h1>
-        <p class="product-detail-meta">Finca Buenos Aires &middot; Génova, Quindío &middot; Maragogipe Variety &middot; Peaberry &middot; Honey Process &middot; 1,800 msnm</p>
-        <p class="product-detail-price">$32</p>
-        <p class="product-detail-description">Maragogipe is a natural giant-bean mutation of Typica, prized for its soft, elegant cup and unusually large beans. This lot is a peaberry selection &mdash; the rare round bean that forms when a cherry develops just one seed instead of two &mdash; from producer Noé Salazar at Finca Buenos Aires in Génova, Quindío, at 1,800 meters. A honey process leaves the mucilage on during drying, adding body and deepening the variety's natural sweetness.</p>
+        <h1>Macizo Java Natural</h1>
+        <p class="product-detail-meta">El Colegio &middot; 1,650m &middot; Java &middot; Natural</p>
+        <p class="product-detail-price"><span class="price-amount">$44</span> <span class="price-size">340g</span></p>
+        <p class="product-detail-description">A natural-process Java from El Colegio with a soft, elegant profile. Sweet rum and cacao lead, followed by gentle fruit tones that linger on the finish.</p>
+
+        <dl class="product-specs">
+          <div class="product-spec"><dt>Producer</dt><dd>Macizo</dd></div>
+          <div class="product-spec"><dt>Variety</dt><dd>Java</dd></div>
+          <div class="product-spec"><dt>Origin</dt><dd>El Colegio</dd></div>
+          <div class="product-spec"><dt>Altitude</dt><dd>1,650m</dd></div>
+          <div class="product-spec"><dt>Process</dt><dd>Natural</dd></div>
+          <div class="product-spec"><dt>Roast</dt><dd>Light</dd></div>
+        </dl>
 
         <div class="product-detail-notes">
           <h3>Tasting Notes</h3>
-          <p>Vanilla flower, nuts, and oat. Malic, juicy green apple acidity. Silky mouthfeel with a persistent finish of hazelnut cream, cinnamon, and lemongrass.</p>
+          <p>Sweet rum, cacao, fruit.</p>
         </div>
 
         <div class="brew-guide">
@@ -74,13 +86,21 @@
           <p>Pour-over recommended at 192&deg;F. Weigh your beans. Take your time.</p>
         </div>
 
-        <p class="product-detail-description" style="font-size: 13px;">Producer: Noé Salazar. Finca Buenos Aires, Génova, Quindío. Direct and fair trade. Zero pesticides. Regenerative farming.</p>
+        <p class="product-detail-description" style="font-size: 13px;">Grown regeneratively at 1,650 meters. No pesticides. Direct trade.</p>
 
-        <button class="btn btn-primary" data-add-to-cart data-product-name="Expresiones Maragogipe Peaberry" data-product-price="32">Add to Cart — $32</button>
+        <div class="size-picker">
+          <label for="size-select">Size</label>
+          <select id="size-select" class="size-select">
+            <option value="340g" data-price="44" selected>340g &mdash; $44</option>
+            <option value="500g" data-price="56">500g &mdash; $56</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" data-add-to-cart data-product-name="Macizo Java Natural" data-product-price="44" data-product-size="340g">Add to Cart &mdash; $44</button>
       </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
