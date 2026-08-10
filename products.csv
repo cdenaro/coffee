@@ -1,17 +1,24 @@
-Producer,Product Name,Variety,Origin/Farm,Altitude,Process,Tasting Notes,Current Price
-Macizo,Macizo Gesha,Gesha,"Anolaima, Cundinamarca",1657m,Washed Organic,"Jasmine, rose, cocoa, blueberry, peach, vanilla, tangerine",34
-Macizo,Macizo Special Edition,"Pacamara, Java","La Victoria, Cundinamarca",1650m,Natural,"Winey aroma, licorice, sweet tobacco, nectarine",30
-Macizo,Macizo Pink Bourbon,Pink Bourbon,"Anolaima, Cundinamarca",1650m,Washed,"Orange blossom, honey, lemongrass, araza",28
-Macizo,Macizo Cundinamarca Blend,"Castillo, Colombia, Typica",Cundinamarca,1750m,Washed,"Sugar cane, nutty, plum, orange acidity, caramel, brown sugar",24
-Macizo,Macizo Santander,Castillo,"Oiba, Santander",1350m,Traditional Washed,"Caramel, vanilla, dried fruit, citric acidity",22
-Expresiones,Expresiones Bourbon Rojo,Bourbon Rojo,"Finca La Sirena, Calarca, Quindio",1630m,Osmotic Dehydration,"Tropical fruits, cinnamon, flowers, chocolate, blueberry, hazelnut cream",26
-Expresiones,Expresiones Java,Java,"Finca La Macarena, Pijao, Quindio",,"Natural Process","Maple honey, tropical fruits, pineapple, passion fruit, black tea, sweet cacao",26
-Expresiones,Expresiones Castillo,Castillo,"Finca La Sirena, Calarca, Quindio",1630m,Washed with Thermal Action,"Fruit, dark chocolate, caramel, orange, panela, dried fruits",24
-Expresiones,Expresiones Bourbon Naranja,Bourbon Naranja,"Finca La Sirena, Calarca, Quindio",1630m,Honey 75% Mucilage,"Yellow fruits, flowers, spices, peach, caramel, lemongrass",26
-Expresiones,Expresiones Geisha,Geisha,"Finca La Macarena, Pijao, Quindio",1658m,Washed Carbonic Maceration,"Yellow fruits, lemongrass, jasmine, lime, green tea, cacao, vanilla",32
-Expresiones,Expresiones Wush Wush,Wush Wush,"Finca La Linda, Buenavista, Quindio",1550m,Natural Process,"Purple fruits, roses, maple honey, wild blackberry, black tea, spices",28
-Expresiones,Expresiones Bourbon Rosado,Bourbon Rosado,"Finca La Sirena, Calarca, Quindio",1630m,,"Roses, lychee, red fruits, white chocolate, cardamom",28
-Expresiones,Expresiones Maragogipe Peaberry,Maragogipe (Peaberry),"Finca Buenos Aires, Genova, Quindio",1800m,Honey Process,"Vanilla flower, nuts, oat, green apple, hazelnut cream, cinnamon, lemongrass",32
-San Alberto,San Alberto Black Swan,"Geisha (predominant), Bourbon, Caturra","Hacienda San Alberto, Buenavista, Quindio",1800m,Natural,"Ripe red berries, red wine, cocoa",43
-San Alberto,San Alberto Corazon Gesha,"90% Gesha, 5% Caturra, 5% Castillo","Hacienda San Alberto, Buenavista, Quindio",1500-1800m,Washed,"Lemongrass, juicy fruit, floral heart, silky body",35
-San Alberto,San Alberto Signature,"75% Caturra, 25% Castillo","Hacienda San Alberto, Buenavista, Quindio",1500-1800m,Washed,"Caramel, dark chocolate, fruit acidity, creamy body",24
+Producer,Product Name,Variety,Origin/Farm,Altitude,Process,SCA Score,Award,Tasting Notes,Roast,Size,Price (USD),Default Size
+Macizo,Macizo Santander,Castillo,"Oiba, Santander","1,500m",Traditional Washed,85,,"caramel, vanilla, dried fruit",Light,340g,25,yes
+Macizo,Macizo Santander,Castillo,"Oiba, Santander","1,500m",Traditional Washed,85,,"caramel, vanilla, dried fruit",Light,500g,31,no
+Macizo,Macizo Cundinamarca Blend,"Yellow Bourbon, Castillo, Caturra","Puli, Cundinamarca","1,750m",Washed,87,,"sugar cane, caramel, brown sugar, orange",Light,340g,26,yes
+Macizo,Macizo Cundinamarca Blend,"Yellow Bourbon, Castillo, Caturra","Puli, Cundinamarca","1,750m",Washed,87,,"sugar cane, caramel, brown sugar, orange",Light,500g,35,no
+Macizo,Macizo Pink Bourbon,Pink Bourbon,"Santa María, Huila","1,650m",Washed,87.4,,"orange blossom, honey, lemongrass, arazá",Light,340g,32,yes
+Macizo,Macizo Pink Bourbon,Pink Bourbon,"Santa María, Huila","1,650m",Washed,87.4,,"orange blossom, honey, lemongrass, arazá",Light,500g,38,no
+Macizo,Macizo Caturra,Caturra,"Oiba, Santander","1,350m",Washed,,,"citrus, balanced sweetness",Light,340g,25,yes
+Macizo,Macizo Caturra,Caturra,"Oiba, Santander","1,350m",Washed,,,"citrus, balanced sweetness",Light,500g,31,no
+Macizo,Macizo Special Edition Java,Java,"La Victoria, Cundinamarca","1,650m",Natural,88.2,,"licorice, sweet tobacco, nectarine",Light,340g,38,yes
+Macizo,Macizo Special Edition Java,Java,"La Victoria, Cundinamarca","1,650m",Natural,88.2,,"licorice, sweet tobacco, nectarine",Light,500g,46,no
+Macizo,Macizo Java Natural,Java,El Colegio,"1,650m",Natural,,,"sweet rum, cacao, fruit",Light,340g,44,yes
+Macizo,Macizo Java Natural,Java,El Colegio,"1,650m",Natural,,,"sweet rum, cacao, fruit",Light,500g,56,no
+Macizo,Macizo Gesha,Gesha,"Anolaima, Cundinamarca","1,750m",Washed Organic,,,"jasmine, rose, cocoa, blueberry, peach, vanilla, tangerine",Light,340g,44,yes
+Macizo,Macizo Gesha,Gesha,"Anolaima, Cundinamarca","1,750m",Washed Organic,,,"jasmine, rose, cocoa, blueberry, peach, vanilla, tangerine",Light,500g,58,no
+Macizo,Macizo House Blend,Traditional varieties blend,Cundinamarca,"1,750m",Washed & Honey,,,"sugar cane, lemongrass, nuts",Light,340g,29,yes
+Macizo,Macizo House Blend,Traditional varieties blend,Cundinamarca,"1,750m",Washed & Honey,,,"sugar cane, lemongrass, nuts",Light,500g,38,no
+Macizo,Macizo House Blend Reloaded,Traditional varieties blend,Cundinamarca,"1,750m",Washed & Honey,,Premium Silver Global Award,"dried fruits, nuts, brown sugar",Light,340g,32,yes
+Macizo,Macizo House Blend Reloaded,Traditional varieties blend,Cundinamarca,"1,750m",Washed & Honey,,Premium Silver Global Award,"dried fruits, nuts, brown sugar",Light,500g,38,no
+Expresiones,Expresiones Castillo,Castillo,"Finca La Sirena, Calarcá, Quindío","1,630m",Washed with Thermal Action,,,"dark chocolate, caramel, orange, panela, dried fruits",Light,250g,22,yes
+Expresiones,Expresiones Bourbon Naranja,Bourbon Naranja,"Finca La Sirena, Calarcá, Quindío","1,630m",Honey (75% Mucilage),,,"yellow fruits, flowers, peach, caramel, lemongrass, spices",Light,250g,27,yes
+Expresiones,Expresiones Geisha,Geisha,"Finca La Macarena, Pijao, Quindío","1,658m",Washed Carbonic Maceration,,,"yellow fruits, lemongrass, jasmine, lime, green tea, cacao, vanilla",Light,250g,33,yes
+Expresiones,Expresiones Wush Wush,Wush Wush,"Finca La Linda, Buenavista, Quindío","1,550m",Natural,,,"purple fruits, roses, maple honey, wild blackberry, black tea, spices",Light,250g,38,yes
+Expresiones,Expresiones SL-28,SL-28,"Finca Bellavista, Quimbaya, Quindío","1,350m",Natural,,,"ripe pineapple, plum, flowers, caramelized coconut, cinnamon, cardamom, anise",Light,250g,47,yes

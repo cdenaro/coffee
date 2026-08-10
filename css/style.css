@@ -584,6 +584,22 @@ a.producer-card:hover {
   color: var(--dark-chocolate);
 }
 
+.product-price-size {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--muted-brown);
+}
+
+.product-img-label {
+  font-family: 'Libre Baskerville', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--terracotta);
+  text-align: center;
+  padding: 0 20px;
+}
+
 /* --- Subscribe --- */
 .subscribe {
   background-color: var(--deep-espresso);
@@ -834,6 +850,70 @@ a.producer-card:hover {
   font-family: 'Libre Baskerville', serif;
   font-size: 1.8rem;
   margin-bottom: 24px;
+}
+
+.product-detail-price .price-size {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-brown);
+}
+
+.product-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 24px;
+  background: rgba(59, 42, 26, 0.04);
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.product-spec dt {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+}
+
+.product-spec dd {
+  margin: 0;
+  font-size: 14px;
+  color: var(--dark-chocolate);
+}
+
+.size-picker {
+  margin-bottom: 24px;
+}
+
+.size-picker label {
+  display: block;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-brown);
+  margin-bottom: 6px;
+}
+
+.size-select {
+  width: 100%;
+  max-width: 260px;
+  padding: 10px 12px;
+  border: 1px solid rgba(59, 42, 26, 0.15);
+  border-radius: 2px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 14px;
+  color: var(--dark-chocolate);
+  background: var(--cream);
+  cursor: pointer;
+}
+
+.size-select:focus {
+  outline: none;
+  border-color: var(--terracotta);
 }
 
 .product-detail-description {
@@ -1313,4 +1393,8 @@ a.producer-card:hover {
   }
 
   .stat { flex: 1 1 100%; }
+
+  .product-specs {
+    grid-template-columns: 1fr;
+  }
 }

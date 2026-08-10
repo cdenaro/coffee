@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expresiones Java — Point of Origin Coffee</title>
-  <meta name="description" content="Java variety from Finca La Macarena, Pijao, Quindío. Natural process, 192-hour fermentation. Maple honey, tropical fruits, black tea.">
+  <title>Macizo Caturra &mdash; Washed &mdash; Point of Origin Coffee</title>
+  <meta name="description" content="Caturra from Oiba, Santander. Citrus, balanced sweetness. Washed process.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -12,10 +12,12 @@
 </head>
 <body>
 
+  <!-- Announcement Bar -->
   <div class="announcement-bar">
     Direct and fair trade &middot; Zero pesticides &middot; Regenerative farming
   </div>
 
+  <!-- Navigation -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="/" class="logo">
@@ -51,22 +53,32 @@
     </div>
   </header>
 
+  <!-- Product Detail -->
   <section class="product-detail">
     <div class="container product-detail-inner">
       <div class="product-detail-image">
-        <div class="product-detail-img-placeholder" style="height: 560px; overflow: hidden; background: #f0e8d8;">
-          <img src="images/FotosExpresiones_14.jpg" alt="Expresiones Java Natural 250g bag" style="width: 100%; height: 100%; object-fit: contain;">
+        <div class="product-detail-img-placeholder" style="height: 560px;">
+          <span class="product-img-label">Macizo Caturra</span>
         </div>
       </div>
       <div class="product-detail-content">
-        <h1>Expresiones Java</h1>
-        <p class="product-detail-meta">Finca La Macarena &middot; Pijao, Quindío &middot; Java Variety &middot; Natural Process &middot; Processed at Finca La Sirena</p>
-        <p class="product-detail-price">$26</p>
-        <p class="product-detail-description">From producer Mariela Hernández at Finca La Macarena in Pijao, Quindío, with the lot processed at Finca La Sirena. This Java variety is developed through a natural process in which the cherry dries whole, encouraging deeper interaction between fruit and seed. The result is an intense, juicy, silky cup with heightened sweetness and a fuller body that highlights the variety's exotic character.</p>
+        <h1>Macizo Caturra</h1>
+        <p class="product-detail-meta">Oiba, Santander &middot; 1,350m &middot; Caturra &middot; Washed</p>
+        <p class="product-detail-price"><span class="price-amount">$25</span> <span class="price-size">340g</span></p>
+        <p class="product-detail-description">A classic Colombian Caturra from Oiba, Santander. Balanced sweetness, lively acidity, citrusy notes, and a medium body make this an everyday coffee that never feels ordinary.</p>
+
+        <dl class="product-specs">
+          <div class="product-spec"><dt>Producer</dt><dd>Macizo</dd></div>
+          <div class="product-spec"><dt>Variety</dt><dd>Caturra</dd></div>
+          <div class="product-spec"><dt>Origin</dt><dd>Oiba, Santander</dd></div>
+          <div class="product-spec"><dt>Altitude</dt><dd>1,350m</dd></div>
+          <div class="product-spec"><dt>Process</dt><dd>Washed</dd></div>
+          <div class="product-spec"><dt>Roast</dt><dd>Light</dd></div>
+        </dl>
 
         <div class="product-detail-notes">
           <h3>Tasting Notes</h3>
-          <p>Maple honey, tropical fruits, and flowers. Juicy citric acidity of pineapple and gulupa (passion fruit). Creamy mouthfeel with a lingering finish of black tea and sweet cacao.</p>
+          <p>Citrus, balanced sweetness.</p>
         </div>
 
         <div class="brew-guide">
@@ -74,13 +86,21 @@
           <p>Pour-over recommended at 192&deg;F. Weigh your beans. Take your time.</p>
         </div>
 
-        <p class="product-detail-description" style="font-size: 13px;">Producer: Mariela Hernández. Finca La Macarena, Pijao, Quindío. Direct and fair trade. Zero pesticides. Regenerative farming.</p>
+        <p class="product-detail-description" style="font-size: 13px;">Grown regeneratively at 1,350 meters. No pesticides. Direct trade.</p>
 
-        <button class="btn btn-primary" data-add-to-cart data-product-name="Expresiones Java" data-product-price="26">Add to Cart — $26</button>
+        <div class="size-picker">
+          <label for="size-select">Size</label>
+          <select id="size-select" class="size-select">
+            <option value="340g" data-price="25" selected>340g &mdash; $25</option>
+            <option value="500g" data-price="31">500g &mdash; $31</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" data-add-to-cart data-product-name="Macizo Caturra" data-product-price="25" data-product-size="340g">Add to Cart &mdash; $25</button>
       </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
