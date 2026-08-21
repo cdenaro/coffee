@@ -116,12 +116,14 @@
     </div>
   </footer>
 
+  <script src="js/cart.js"></script>
   <script src="js/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var params = new URLSearchParams(window.location.search);
       var sessionId = params.get('session_id');
       if (sessionId) {
+        Cart.clear();
         fetch('/api/order-details?session_id=' + sessionId)
           .then(function (res) { return res.json(); })
           .then(function (data) {
