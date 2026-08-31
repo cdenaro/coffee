@@ -31,31 +31,32 @@ const PRICES = {
   'Expresiones SL-28 (250g)': 47,
 };
 
-// Shipping zones. Rates are placeholders pending confirmed carrier costs —
-// adjust the amounts here (in USD cents) to change what customers pay.
+// Fallback shipping zones — used ONLY when a live DHL quote fails (see
+// api/_dhl.js), so checkout never breaks. Amounts are USD cents, set
+// conservatively for a Bogotá origin; adjust here if DHL pricing shifts.
 const SHIPPING_ZONES = {
-  US: {
-    label: 'US Shipping',
-    amount: 500,
-    countries: ['US'],
-    delivery: { min: 5, max: 10 },
-  },
-  CA: {
-    label: 'Canada Shipping',
+  CO: {
+    label: 'Colombia Shipping',
     amount: 1500,
-    countries: ['CA'],
-    delivery: { min: 7, max: 14 },
+    countries: ['CO'],
+    delivery: { min: 2, max: 5 },
+  },
+  AMERICAS: {
+    label: 'DHL Express Shipping (incl. import fees)',
+    amount: 5000,
+    countries: ['US', 'CA', 'MX', 'PA', 'CR', 'PE', 'CL', 'AR', 'BR', 'UY'],
+    delivery: { min: 3, max: 8 },
   },
   INTL: {
-    label: 'International Shipping',
-    amount: 3000,
+    label: 'DHL Express Shipping (incl. import fees)',
+    amount: 6500,
     countries: [
-      'AE', 'AR', 'AT', 'AU', 'BE', 'BR', 'CH', 'CL', 'CO', 'CR', 'CZ', 'DE',
-      'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GR', 'HK', 'HR', 'HU', 'IE', 'IL',
-      'IS', 'IT', 'JP', 'KR', 'LT', 'LU', 'LV', 'MX', 'NL', 'NO', 'NZ', 'PA',
-      'PE', 'PL', 'PT', 'RO', 'SA', 'SE', 'SG', 'SI', 'SK', 'TW', 'UY',
+      'AE', 'AT', 'AU', 'BE', 'CH', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR',
+      'GB', 'GR', 'HK', 'HR', 'HU', 'IE', 'IL', 'IS', 'IT', 'JP', 'KR', 'LT',
+      'LU', 'LV', 'NL', 'NO', 'NZ', 'PL', 'PT', 'RO', 'SA', 'SE', 'SG', 'SI',
+      'SK', 'TW',
     ],
-    delivery: { min: 10, max: 21 },
+    delivery: { min: 4, max: 12 },
   },
 };
 

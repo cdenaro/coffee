@@ -1,5 +1,6 @@
 const Stripe = require('stripe');
 const { getPrice, getShippingZone } = require('./_catalog');
+const { quoteRates } = require('./_dhl');
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -10,14 +11,15 @@ module.exports = async function handler(req, res) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
   try {
-    const { items, country } = req.body;
+    const { items, destination, rateCode } = req.body;
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: 'No items provided' });
     }
 
-    const shipping = getShippingZone(country);
-    if (!shipping) {
+    const dest = destination || {};
+    const zone = getShippingZone(dest.country);
+    if (!zone) {
       return res.status(400).json({ error: 'Please select a shipping destination' });
     }
 
@@ -44,22 +46,48 @@ module.exports = async function handler(req, res) {
       });
     }
 
+    // Shipping is re-quoted server-side (the client's displayed price is
+    // advisory only); DHL failure degrades to the flat fallback zone rate.
+    let shippingOption = {
+      code: 'FALLBACK',
+      name: zone.zone.label,
+      amountCents: zone.zone.amount,
+      minDays: zone.zone.delivery.min,
+      maxDays: zone.zone.delivery.max,
+    };
+    if (dest.city) {
+      try {
+        const rates = await quoteRates(
+          items,
+          { country: zone.code, city: String(dest.city).trim(), postal: String(dest.postal || '').trim() }
+        );
+        const match = rates.find(function (r) { return r.code === rateCode; });
+        if (match) {
+          shippingOption = match;
+        } else if (rates.length > 0 && rateCode !== 'FALLBACK') {
+          shippingOption = rates[0];
+        }
+      } catch (err) {
+        console.error('Checkout shipping quote failed, using fallback zone:', err.message);
+      }
+    }
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: line_items,
       mode: 'payment',
       shipping_address_collection: {
-        allowed_countries: [shipping.code],
+        allowed_countries: [zone.code],
       },
       shipping_options: [
         {
           shipping_rate_data: {
             type: 'fixed_amount',
-            fixed_amount: { amount: shipping.zone.amount, currency: 'usd' },
-            display_name: shipping.zone.label,
+            fixed_amount: { amount: shippingOption.amountCents, currency: 'usd' },
+            display_name: shippingOption.name,
             delivery_estimate: {
-              minimum: { unit: 'business_day', value: shipping.zone.delivery.min },
-              maximum: { unit: 'business_day', value: shipping.zone.delivery.max },
+              minimum: { unit: 'business_day', value: shippingOption.minDays },
+              maximum: { unit: 'business_day', value: shippingOption.maxDays },
             },
           },
         },
@@ -76,7 +104,8 @@ module.exports = async function handler(req, res) {
       cancel_url: req.headers.origin + '/checkout.html',
       metadata: {
         order_source: 'website',
-        ship_country: shipping.code,
+        ship_country: zone.code,
+        ship_rate_code: shippingOption.code,
       },
     });
 

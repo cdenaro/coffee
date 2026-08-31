@@ -1,5 +1,36 @@
 # Order notifications & fulfillment setup
 
+## Shipping: live DHL Express rates (Bogotá origin)
+
+Checkout quotes real DHL Express rates from Giovanni's account: the customer
+enters country + city + postal code on the cart page, picks from up to two
+DHL services, and pays the quoted price (DHL rate + an import-duties buffer,
+rounded up to the whole dollar). If the DHL API is ever unreachable,
+checkout falls back to flat zone rates (editable in `api/_catalog.js`) so
+orders are never blocked.
+
+Setup (Giovanni, ~15 min):
+
+1. Go to [developer.dhl.com](https://developer.dhl.com), sign in / create a
+   developer account, and create an **app** with access to
+   **DHL Express — MyDHL API**.
+2. In the app, note the **API Key** and **API Secret**, and enter Giovanni's
+   **DHL Express account number** to link it (rates then use his pricing).
+3. Add to Vercel env vars (table below): `DHL_API_KEY`, `DHL_API_SECRET`,
+   `DHL_ACCOUNT_NUMBER`.
+4. **Important — duties**: prices shown to customers include an import-fees
+   buffer (`SHIPPING_DUTIES_PERCENT`, default 10% of the goods value), so
+   when Giovanni books each shipment he must select **DTP / Duties & Taxes
+   Paid** (billed to his account) — otherwise the customer gets charged
+   again on delivery.
+5. If DHL bills the account in COP, quotes are converted using
+   `FX_COP_PER_USD` (default 4200) — update it occasionally as the exchange
+   rate moves.
+
+---
+
+## Order flow
+
 What happens when a customer pays, once everything below is configured:
 
 1. Stripe finishes the checkout and calls `/api/stripe-webhook`.
@@ -58,6 +89,11 @@ Vercel → project → **Settings → Environment Variables** (Production):
 | `ORDER_FROM_EMAIL` | `Point of Origin Orders <orders@pointoforigin.coffee>` (after domain verifies) |
 | `FULFILLMENT_SHEET_URL` | Web app URL from step 2 |
 | `FULFILLMENT_SHEET_TOKEN` | the token you set in the Apps Script |
+| `DHL_API_KEY` | from the MyDHL API app (shipping section above) |
+| `DHL_API_SECRET` | from the MyDHL API app |
+| `DHL_ACCOUNT_NUMBER` | Giovanni's DHL Express account number |
+| `SHIPPING_DUTIES_PERCENT` | *(optional — import-fees buffer, default 10)* |
+| `FX_COP_PER_USD` | *(optional — COP→USD conversion, default 4200)* |
 | `ORDER_NOTIFY_EMAILS` | *(optional — defaults to chris@, bob@, giovanni@)* |
 
 Redeploy the site after adding them (Deployments → ⋯ → Redeploy).
