@@ -80,9 +80,79 @@
             <span>Subtotal</span>
             <span id="cart-total-amount"></span>
           </div>
-          <p style="font-size: 12px; color: var(--muted-brown); margin-bottom: 24px;">Shipping calculated at checkout. $5 flat rate.</p>
+          <div class="size-picker" style="margin-top: 24px;">
+            <label for="ship-country">Ship to</label>
+            <select id="ship-country" class="size-select" style="max-width: 100%;">
+              <option value="US" selected>United States</option>
+              <option value="CA">Canada</option>
+              <option value="CO">Colombia</option>
+              <optgroup label="International">
+                <option value="AR">Argentina</option>
+                <option value="AU">Australia</option>
+                <option value="AT">Austria</option>
+                <option value="BE">Belgium</option>
+                <option value="BR">Brazil</option>
+                <option value="CL">Chile</option>
+                <option value="CO">Colombia</option>
+                <option value="CR">Costa Rica</option>
+                <option value="HR">Croatia</option>
+                <option value="CZ">Czechia</option>
+                <option value="DK">Denmark</option>
+                <option value="EE">Estonia</option>
+                <option value="FI">Finland</option>
+                <option value="FR">France</option>
+                <option value="DE">Germany</option>
+                <option value="GR">Greece</option>
+                <option value="HK">Hong Kong</option>
+                <option value="HU">Hungary</option>
+                <option value="IS">Iceland</option>
+                <option value="IE">Ireland</option>
+                <option value="IL">Israel</option>
+                <option value="IT">Italy</option>
+                <option value="JP">Japan</option>
+                <option value="LV">Latvia</option>
+                <option value="LT">Lithuania</option>
+                <option value="LU">Luxembourg</option>
+                <option value="MX">Mexico</option>
+                <option value="NL">Netherlands</option>
+                <option value="NZ">New Zealand</option>
+                <option value="NO">Norway</option>
+                <option value="PA">Panama</option>
+                <option value="PE">Peru</option>
+                <option value="PL">Poland</option>
+                <option value="PT">Portugal</option>
+                <option value="RO">Romania</option>
+                <option value="SA">Saudi Arabia</option>
+                <option value="SG">Singapore</option>
+                <option value="SK">Slovakia</option>
+                <option value="SI">Slovenia</option>
+                <option value="KR">South Korea</option>
+                <option value="ES">Spain</option>
+                <option value="SE">Sweden</option>
+                <option value="CH">Switzerland</option>
+                <option value="TW">Taiwan</option>
+                <option value="AE">United Arab Emirates</option>
+                <option value="GB">United Kingdom</option>
+                <option value="UY">Uruguay</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-row" style="margin-top: 12px;">
+            <div class="form-group">
+              <label for="ship-city">City</label>
+              <input type="text" id="ship-city" placeholder="e.g. Austin">
+            </div>
+            <div class="form-group form-group-small">
+              <label for="ship-postal">Postal Code</label>
+              <input type="text" id="ship-postal">
+            </div>
+          </div>
+          <button type="button" id="get-rates-btn" class="btn btn-primary btn-sm" style="margin-bottom: 16px;">Calculate Shipping</button>
+          <div id="rates-error" style="display: none; margin-bottom: 12px; padding: 12px; background: #f8e8e8; border-radius: 4px; color: #8b3a3a; font-size: 13px;"></div>
+          <div id="rate-options" style="display: none; margin-bottom: 16px;"></div>
+          <p style="font-size: 12px; color: var(--muted-brown); margin-bottom: 24px;">Ships from Bogot&aacute;, Colombia via DHL Express. International prices include import duties &amp; fees &mdash; no surprise charges on delivery. Don't see your country? <a href="mailto:chris@pointoforigin.coffee" style="text-decoration: underline;">Email us</a>.</p>
 
-          <button id="checkout-btn" class="btn btn-primary btn-full">Proceed to Payment</button>
+          <button id="checkout-btn" class="btn btn-primary btn-full" disabled style="opacity: 0.5;">Proceed to Payment</button>
           <div id="checkout-error" style="display: none; margin-top: 12px; padding: 12px; background: #f8e8e8; border-radius: 4px; color: #8b3a3a; font-size: 13px; text-align: center;"></div>
           <p class="checkout-note">You'll be redirected to Stripe for secure payment and shipping address.</p>
         </div>
@@ -171,6 +241,7 @@
         });
 
         totalEl.textContent = '$' + Cart.getTotal().toFixed(2);
+        invalidateRates();
       }
 
       // Handle quantity changes and removal
@@ -197,10 +268,113 @@
         }
       });
 
+      // --- Shipping rates ---
+      var countrySelect = document.getElementById('ship-country');
+      var cityInput = document.getElementById('ship-city');
+      var postalInput = document.getElementById('ship-postal');
+      var getRatesBtn = document.getElementById('get-rates-btn');
+      var ratesErrorEl = document.getElementById('rates-error');
+      var rateOptionsEl = document.getElementById('rate-options');
+      var selectedRate = null;
+
+      function invalidateRates() {
+        selectedRate = null;
+        rateOptionsEl.style.display = 'none';
+        rateOptionsEl.innerHTML = '';
+        checkoutBtn.disabled = true;
+        checkoutBtn.style.opacity = '0.5';
+      }
+
+      function getDestination() {
+        return {
+          country: countrySelect.value,
+          city: cityInput.value.trim(),
+          postal: postalInput.value.trim(),
+        };
+      }
+
+      function renderRates(rates, fallback) {
+        rateOptionsEl.innerHTML = '';
+        rates.forEach(function (rate, i) {
+          var label = document.createElement('label');
+          label.style.cssText = 'display: block; padding: 12px; border: 1px solid rgba(59,42,26,0.15); border-radius: 4px; margin-bottom: 8px; cursor: pointer; font-size: 14px;';
+          var radio = document.createElement('input');
+          radio.type = 'radio';
+          radio.name = 'ship-rate';
+          radio.value = rate.code;
+          radio.style.marginRight = '10px';
+          radio.addEventListener('change', function () {
+            selectedRate = rate.code;
+            checkoutBtn.disabled = false;
+            checkoutBtn.style.opacity = '1';
+          });
+          label.appendChild(radio);
+          label.appendChild(document.createTextNode(
+            rate.name + ' — $' + (rate.amountCents / 100).toFixed(2) +
+            ' (' + rate.minDays + '–' + rate.maxDays + ' business days)'
+          ));
+          rateOptionsEl.appendChild(label);
+          if (i === 0) {
+            radio.checked = true;
+            selectedRate = rate.code;
+            checkoutBtn.disabled = false;
+            checkoutBtn.style.opacity = '1';
+          }
+        });
+        if (fallback) {
+          var note = document.createElement('p');
+          note.style.cssText = 'font-size: 12px; color: var(--muted-brown);';
+          note.textContent = 'Estimated rate — the final label cost is on us if it differs.';
+          rateOptionsEl.appendChild(note);
+        }
+        rateOptionsEl.style.display = 'block';
+      }
+
+      getRatesBtn.addEventListener('click', function () {
+        var items = Cart.getItems();
+        if (items.length === 0) return;
+        var dest = getDestination();
+        ratesErrorEl.style.display = 'none';
+        if (dest.city.length < 2) {
+          ratesErrorEl.textContent = 'Please enter your city so we can quote shipping.';
+          ratesErrorEl.style.display = 'block';
+          return;
+        }
+        getRatesBtn.textContent = 'Calculating...';
+        getRatesBtn.disabled = true;
+        invalidateRates();
+
+        fetch('/api/shipping-rates', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: items, destination: dest }),
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (data.rates && data.rates.length > 0) {
+              renderRates(data.rates, data.fallback);
+            } else {
+              throw new Error(data.error || 'No rates available');
+            }
+          })
+          .catch(function (err) {
+            ratesErrorEl.textContent = err.message || 'Unable to get shipping rates. Please try again.';
+            ratesErrorEl.style.display = 'block';
+          })
+          .finally(function () {
+            getRatesBtn.textContent = 'Calculate Shipping';
+            getRatesBtn.disabled = false;
+          });
+      });
+
+      countrySelect.addEventListener('change', invalidateRates);
+      cityInput.addEventListener('input', invalidateRates);
+      postalInput.addEventListener('input', invalidateRates);
+
       // Stripe checkout
       checkoutBtn.addEventListener('click', function () {
         var items = Cart.getItems();
-        if (items.length === 0) return;
+        if (items.length === 0 || !selectedRate) return;
 
         checkoutBtn.textContent = 'Redirecting to payment...';
         checkoutBtn.disabled = true;
@@ -209,12 +383,11 @@
         fetch('/api/create-checkout-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items: items }),
+          body: JSON.stringify({ items: items, destination: getDestination(), rateCode: selectedRate }),
         })
           .then(function (res) { return res.json(); })
           .then(function (data) {
             if (data.url) {
-              Cart.clear();
               window.location.href = data.url;
             } else {
               throw new Error(data.error || 'Something went wrong');
@@ -223,6 +396,7 @@
           .catch(function (err) {
             checkoutBtn.textContent = 'Proceed to Payment';
             checkoutBtn.disabled = false;
+            checkoutBtn.style.opacity = '1';
             errorEl.textContent = 'Unable to start checkout. Please try again or contact us.';
             errorEl.style.display = 'block';
           });
